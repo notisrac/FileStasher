@@ -1,0 +1,147 @@
+﻿<Window x:Class="FileStasher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileStasher"
+        xmlns:model="clr-namespace:FileStasher.Model"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel>
+        <!-- menu -->
+        <Menu DockPanel.Dock="Top" VerticalAlignment="Top" Width="auto" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" Command="New"/>
+                <Separator/>
+                <MenuItem Header="_Exit" />
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Command="ApplicationCommands.Copy"/>
+                <MenuItem Command="ApplicationCommands.Cut"/>
+                <MenuItem Command="ApplicationCommands.Paste"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- status bar -->
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem>
+                <TextBlock Name="lblCursorPosition" />
+            </StatusBarItem>
+            <Separator Grid.Column="1" />
+            <StatusBarItem Grid.Column="2">
+                <TextBlock Text="c:\path\of\current\file.txt" />
+            </StatusBarItem>
+            <Separator Grid.Column="3" />
+            <StatusBarItem Grid.Column="4">
+                <ProgressBar Value="50" Width="90" Height="16" />
+            </StatusBarItem>
+        </StatusBar>
+
+        <!-- body -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" MinWidth="100"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="*" MinWidth="100"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- left side navigation -->
+            <DockPanel>
+                <!-- search box -->
+                <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+                    <Button Content="Filter" Width="40" DockPanel.Dock="Right"/>
+                    <TextBox Width="Auto"/>
+                </DockPanel>
+                <!-- new stash button -->
+                <Button Content="New stash" DockPanel.Dock="Top"/>
+                <!-- stash list -->
+                <TreeView Name="trvList">
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}">
+                            <Setter Property="IsExpanded" Value="True" />
+                        </Style>
+                    </TreeView.ItemContainerStyle>
+                    <TreeView.Resources>
+                        <HierarchicalDataTemplate DataType="{x:Type model:FileStash}" ItemsSource="{Binding Files}" >
+                            <TextBlock Text="{Binding Path=Name}" />
+                        </HierarchicalDataTemplate>
+
+                        <DataTemplate DataType="{x:Type model:StashedFile}" >
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{Binding Icon}" Stretch="Uniform" Height="16"/>
+                                <TextBlock Text="{Binding Path=Name}" Margin="5,0,0,0" />
+                            </StackPanel>
+                        </DataTemplate>
+
+                    </TreeView.Resources>
+                </TreeView>
+            </DockPanel>
+
+            <!-- resize splitter -->
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+
+            <!-- content -->
+            <Canvas Grid.Column="2">
+                <!-- V1 all in one page, files under each other
+                <Label Content="Stash 1 asdf" Canvas.Left="10" Canvas.Top="10" FontWeight="Bold" FontSize="16"/>
+                <Label Canvas.Left="21" Canvas.Top="41" Width="606" Height="46">
+                    <AccessText TextWrapping="Wrap" Text="Description! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dictum quis nulla a accumsan. Phasellus porttitor nulla sed ex bibendum consequat. Mauris eleifend diam et nunc fringilla commodo."/>
+                </Label>
+                <Button Content="edit" Canvas.Left="115" Canvas.Top="16" Width="36"/>
+                <Button Content="edit" Canvas.Left="581" Canvas.Top="87" Width="36"/>
+                <Button Content="Restore all files" Canvas.Left="30" Canvas.Top="100" Width="90"/>
+                <Button Content="Update all files" Canvas.Left="135" Canvas.Top="100" Width="90"/>
+                <Label Content="Files" Canvas.Left="10" Canvas.Top="134"/>
+                <Label Content="Web.config" Canvas.Left="30" Canvas.Top="165" FontWeight="Bold" FontSize="14"/>
+                <Label Content="Created: 2019.07.11. 14:30:00" Canvas.Left="30" Canvas.Top="194" FontSize="10"/>
+                <Label Content="Last updated: 2days ago" Canvas.Left="173" Canvas.Top="194" FontSize="10"/>
+                <Button Content="Restore" Canvas.Left="327" Canvas.Top="199" Width="59"/>
+                <Button Content="Update" Canvas.Left="403" Canvas.Top="199" Width="59"/>
+                <Button Content="Diff" Canvas.Left="476" Canvas.Top="199" Width="59"/>
+                <Label Content="Location" Canvas.Left="30" Canvas.Top="224"/>
+                <TextBox Height="24" Canvas.Left="90" TextWrapping="NoWrap" Text="C:\Users\szabolcs.nothnagel\source\repos\TestWpfApp1\TestWpfApp1\Web.config" Canvas.Top="226" Width="492"/>-->
+
+                <!--V2 header and tabs-->
+                <Label Content="Stash 1 asdf" Canvas.Left="10" Canvas.Top="10" FontWeight="Bold" FontSize="16"/>
+                <Label Canvas.Left="21" Canvas.Top="41" Width="606" Height="46">
+                    <AccessText TextWrapping="Wrap" Text="Description! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dictum quis nulla a accumsan. Phasellus porttitor nulla sed ex bibendum consequat. Mauris eleifend diam et nunc fringilla commodo."/>
+                </Label>
+                <Button Content="edit" Canvas.Left="115" Canvas.Top="16" Width="36"/>
+                <Button Content="edit" Canvas.Left="581" Canvas.Top="87" Width="36"/>
+                <Button Content="Restore all files" Canvas.Left="30" Canvas.Top="100" Width="90"/>
+                <Button Content="Update all files" Canvas.Left="135" Canvas.Top="100" Width="90"/>
+                <TabControl Height="225" Canvas.Left="21" Canvas.Top="144" Width="596">
+                    <TabItem Header="web.config">
+                        <Canvas Background="#FFE5E5E5">
+                            <Label Content="Created: 2019.07.11. 14:30:00" Canvas.Left="30" Canvas.Top="10" FontSize="10"/>
+                            <Label Content="Last updated: 2days ago" Canvas.Left="173" Canvas.Top="10" FontSize="10"/>
+                            <Button Content="Restore" Canvas.Left="327" Canvas.Top="10" Width="59"/>
+                            <Button Content="Update" Canvas.Left="403" Canvas.Top="10" Width="59"/>
+                            <Button Content="Diff" Canvas.Left="476" Canvas.Top="10" Width="59"/>
+                            <Label Content="Location" Canvas.Left="30" Canvas.Top="38"/>
+                            <TextBox Height="24" Canvas.Left="90" TextWrapping="NoWrap" Text="C:\Users\szabolcs.nothnagel\source\repos\TestWpfApp1\TestWpfApp1\Web.config" Canvas.Top="40" Width="492"/>
+                            <TextBlock Canvas.Left="10" TextWrapping="NoWrap" Text="file contents go here with scrollbar and syntax highlight maybe" Canvas.Top="77" Height="110" Width="570" Background="White"/>
+                        </Canvas>
+                    </TabItem>
+                    <TabItem Header="appdata\data.xml">
+                        <Grid Background="#FFE5E5E5"/>
+                    </TabItem>
+                </TabControl>
+
+            </Canvas>
+        </Grid>
+    </DockPanel>
+</Window>
