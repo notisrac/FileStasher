@@ -42,7 +42,7 @@
             </StatusBarItem>
             <Separator Grid.Column="1" />
             <StatusBarItem Grid.Column="2">
-                <TextBlock Text="c:\path\of\current\file.txt" />
+                <TextBlock Text="c:\whatevs\notistash.json" />
             </StatusBarItem>
             <Separator Grid.Column="3" />
             <StatusBarItem Grid.Column="4">
@@ -95,8 +95,8 @@
 
             <!-- content -->
             <Canvas Grid.Column="2">
-                <!-- V1 all in one page, files under each other
-                <Label Content="Stash 1 asdf" Canvas.Left="10" Canvas.Top="10" FontWeight="Bold" FontSize="16"/>
+                <!-- V1 all in one page, files under each other -->
+                <!-- <Label Content="Stash 1 asdf" Canvas.Left="10" Canvas.Top="10" FontWeight="Bold" FontSize="16"/>
                 <Label Canvas.Left="21" Canvas.Top="41" Width="606" Height="46">
                     <AccessText TextWrapping="Wrap" Text="Description! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dictum quis nulla a accumsan. Phasellus porttitor nulla sed ex bibendum consequat. Mauris eleifend diam et nunc fringilla commodo."/>
                 </Label>
@@ -115,7 +115,7 @@
                 <TextBox Height="24" Canvas.Left="90" TextWrapping="NoWrap" Text="C:\Users\szabolcs.nothnagel\source\repos\TestWpfApp1\TestWpfApp1\Web.config" Canvas.Top="226" Width="492"/>-->
 
                 <!--V2 header and tabs-->
-                <Label Content="Stash 1 asdf" Canvas.Left="10" Canvas.Top="10" FontWeight="Bold" FontSize="16"/>
+                <!--<Label Content="Stash 1 asdf" Canvas.Left="10" Canvas.Top="10" FontWeight="Bold" FontSize="16"/>
                 <Label Canvas.Left="21" Canvas.Top="41" Width="606" Height="46">
                     <AccessText TextWrapping="Wrap" Text="Description! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dictum quis nulla a accumsan. Phasellus porttitor nulla sed ex bibendum consequat. Mauris eleifend diam et nunc fringilla commodo."/>
                 </Label>
@@ -139,8 +139,30 @@
                     <TabItem Header="appdata\data.xml">
                         <Grid Background="#FFE5E5E5"/>
                     </TabItem>
-                </TabControl>
+                </TabControl>-->
 
+                <!--V3 header and files -->
+                <Label Content="Stash 1 asdf" Canvas.Left="10" Canvas.Top="10" FontWeight="Bold" FontSize="16"/>
+                <Label Canvas.Left="21" Canvas.Top="41" Width="606" Height="46">
+                    <AccessText TextWrapping="Wrap" Text="Description! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dictum quis nulla a accumsan. Phasellus porttitor nulla sed ex bibendum consequat. Mauris eleifend diam et nunc fringilla commodo."/>
+                </Label>
+                <Button Content="edit" Canvas.Left="115" Canvas.Top="16" Width="36"/>
+                <Button Content="edit" Canvas.Left="581" Canvas.Top="87" Width="36"/>
+                <Button Content="Restore all files" Canvas.Left="30" Canvas.Top="100" Width="90"/>
+                <Button Content="Update all files" Canvas.Left="135" Canvas.Top="100" Width="90"/>
+
+                <Label Content="Files" Canvas.Left="10" Canvas.Top="134"/>
+                <Label Content="Web.config" Canvas.Left="30" Canvas.Top="165" FontWeight="Bold" FontSize="14"/>
+                <Label Content="Created: 2019.07.11. 14:30:00" Canvas.Left="30" Canvas.Top="194" FontSize="10"/>
+                <Label Content="Last updated: 2days ago" Canvas.Left="173" Canvas.Top="194" FontSize="10"/>
+                <Button Content="Restore" Canvas.Left="327" Canvas.Top="199" Width="59"/>
+                <Button Content="Update" Canvas.Left="403" Canvas.Top="199" Width="59"/>
+                <Button Content="Diff" Canvas.Left="476" Canvas.Top="199" Width="59"/>
+                <Button Content="Open" Canvas.Left="554" Canvas.Top="199" Width="59"/>
+                <Label Content="Location" Canvas.Left="30" Canvas.Top="242"/>
+                <Label Content="Original location" Canvas.Left="30" Canvas.Top="219" FontSize="10"/>
+                <Label Content="C:\Users\szabolcs.nothnagel\source\repos\TestWpfApp1\TestWpfApp1\Web.config" Canvas.Left="113" Canvas.Top="219" FontSize="10"/>
+                <TextBox Height="24" Canvas.Left="90" TextWrapping="NoWrap" Text="C:\Users\szabolcs.nothnagel\source\repos\TestWpfApp1\TestWpfApp1\Web.config" Canvas.Top="244" Width="492"/>
             </Canvas>
         </Grid>
     </DockPanel>

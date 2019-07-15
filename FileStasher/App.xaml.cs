@@ -13,5 +13,16 @@ namespace FileStasher
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            var mainWindow = new MainWindow();
+
+            if (e.Args.Length == 1)
+            {
+                // TODO open file from command line argument
+            }
+
+            mainWindow.Show();
+        }
     }
 }
