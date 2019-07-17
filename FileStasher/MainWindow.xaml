@@ -11,7 +11,18 @@
         <!-- menu -->
         <Menu DockPanel.Dock="Top" VerticalAlignment="Top" Width="auto" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
             <MenuItem Header="_File">
-                <MenuItem Header="_New" Command="New"/>
+                <MenuItem Header="_New..." Command="New"/>
+                <MenuItem Header="_Open..." Command=""/>
+                <Separator/>
+                <MenuItem Header="_Close" Command=""/>
+                <Separator/>
+                <MenuItem Header="_Save {GET CURRENT FILENAME}" Command=""/>
+                <MenuItem Header="Save {GET CURRENT FILENAME} _As" Command=""/>
+                <Separator/>
+                <MenuItem Header="_Recently Closed">
+                    <MenuItem Header="imafile.json" />
+                    <MenuItem Header="anotherfile.json" />
+                </MenuItem>
                 <Separator/>
                 <MenuItem Header="_Exit" />
             </MenuItem>

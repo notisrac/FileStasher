@@ -1,4 +1,5 @@
 ﻿using FileStasher.Model;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,10 +24,12 @@ namespace FileStasher
     public partial class MainWindow : Window
     {
         private readonly ObservableCollection<FileStash> stashList = new ObservableCollection<FileStash>();
+        private readonly ILogger logger;
 
-        public MainWindow()
+        public MainWindow(ILogger logger)
         {
             InitializeComponent();
+            this.logger = logger;
         }
     }
 }
