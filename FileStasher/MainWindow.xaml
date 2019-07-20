@@ -7,24 +7,31 @@
         xmlns:model="clr-namespace:FileStasher.Model"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <!--<Window.CommandBindings>
+        <CommandBinding Command="New" Executed="New_Executed" />
+        <CommandBinding Command="Open" Executed="Open_Executed" />
+        <CommandBinding Command="Close" Executed="Close_Executed" />
+        <CommandBinding Command="Save" Executed="Save_Executed" />
+        <CommandBinding Command="SaveAs" Executed="SaveAs_Executed" />
+    </Window.CommandBindings>-->
     <DockPanel>
-        <!-- menu -->
+        <!-- menu --><!--
         <Menu DockPanel.Dock="Top" VerticalAlignment="Top" Width="auto" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
             <MenuItem Header="_File">
                 <MenuItem Header="_New..." Command="New"/>
-                <MenuItem Header="_Open..." Command=""/>
+                <MenuItem Header="_Open..." Command="Open"/>
                 <Separator/>
-                <MenuItem Header="_Close" Command=""/>
+                <MenuItem Header="{Binding CurrentlyOpenFileName, StringFormat=_Close {0}}" Command="Close"/>
                 <Separator/>
-                <MenuItem Header="_Save {GET CURRENT FILENAME}" Command=""/>
-                <MenuItem Header="Save {GET CURRENT FILENAME} _As" Command=""/>
+                <MenuItem Header="{Binding CurrentlyOpenFileName, StringFormat=_Save {0}}" Command="Save"/>
+                <MenuItem Header="{Binding CurrentlyOpenFileName, StringFormat=Save {0} _As}" Command="SaveAs"/>
                 <Separator/>
                 <MenuItem Header="_Recently Closed">
                     <MenuItem Header="imafile.json" />
                     <MenuItem Header="anotherfile.json" />
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="_Exit" />
+                <MenuItem Header="_Exit"/>
             </MenuItem>
             <MenuItem Header="_Edit">
                 <MenuItem Command="ApplicationCommands.Copy"/>
@@ -33,7 +40,7 @@
             </MenuItem>
         </Menu>
 
-        <!-- status bar -->
+        --><!-- status bar --><!--
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -53,7 +60,7 @@
             </StatusBarItem>
             <Separator Grid.Column="1" />
             <StatusBarItem Grid.Column="2">
-                <TextBlock Text="c:\whatevs\notistash.json" />
+                <TextBlock Text="{Binding CurrentlyOpenFileName}" />
             </StatusBarItem>
             <Separator Grid.Column="3" />
             <StatusBarItem Grid.Column="4">
@@ -61,7 +68,7 @@
             </StatusBarItem>
         </StatusBar>
 
-        <!-- body -->
+        --><!-- body --><!--
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150" MinWidth="100"/>
@@ -69,24 +76,24 @@
                 <ColumnDefinition Width="*" MinWidth="100"/>
             </Grid.ColumnDefinitions>
 
-            <!-- left side navigation -->
+            --><!-- left side navigation --><!--
             <DockPanel>
-                <!-- search box -->
+                --><!-- search box --><!--
                 <DockPanel DockPanel.Dock="Top" LastChildFill="True">
                     <Button Content="Filter" Width="40" DockPanel.Dock="Right"/>
                     <TextBox Width="Auto"/>
                 </DockPanel>
-                <!-- new stash button -->
+                --><!-- new stash button --><!--
                 <Button Content="New stash" DockPanel.Dock="Top"/>
-                <!-- stash list -->
-                <TreeView Name="trvList">
+                --><!-- stash list --><!--
+                <TreeView Name="trvList" ItemsSource="{Binding stashContainer}">
                     <TreeView.ItemContainerStyle>
                         <Style TargetType="{x:Type TreeViewItem}">
                             <Setter Property="IsExpanded" Value="True" />
                         </Style>
                     </TreeView.ItemContainerStyle>
                     <TreeView.Resources>
-                        <HierarchicalDataTemplate DataType="{x:Type model:FileStash}" ItemsSource="{Binding Files}" >
+                        <HierarchicalDataTemplate DataType="{x:Type model:FileStash}" ItemsSource="{Binding Stashes}" >
                             <TextBlock Text="{Binding Path=Name}" />
                         </HierarchicalDataTemplate>
 
@@ -101,58 +108,12 @@
                 </TreeView>
             </DockPanel>
 
-            <!-- resize splitter -->
+            --><!-- resize splitter --><!--
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
 
-            <!-- content -->
+            --><!-- content --><!--
             <Canvas Grid.Column="2">
-                <!-- V1 all in one page, files under each other -->
-                <!-- <Label Content="Stash 1 asdf" Canvas.Left="10" Canvas.Top="10" FontWeight="Bold" FontSize="16"/>
-                <Label Canvas.Left="21" Canvas.Top="41" Width="606" Height="46">
-                    <AccessText TextWrapping="Wrap" Text="Description! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dictum quis nulla a accumsan. Phasellus porttitor nulla sed ex bibendum consequat. Mauris eleifend diam et nunc fringilla commodo."/>
-                </Label>
-                <Button Content="edit" Canvas.Left="115" Canvas.Top="16" Width="36"/>
-                <Button Content="edit" Canvas.Left="581" Canvas.Top="87" Width="36"/>
-                <Button Content="Restore all files" Canvas.Left="30" Canvas.Top="100" Width="90"/>
-                <Button Content="Update all files" Canvas.Left="135" Canvas.Top="100" Width="90"/>
-                <Label Content="Files" Canvas.Left="10" Canvas.Top="134"/>
-                <Label Content="Web.config" Canvas.Left="30" Canvas.Top="165" FontWeight="Bold" FontSize="14"/>
-                <Label Content="Created: 2019.07.11. 14:30:00" Canvas.Left="30" Canvas.Top="194" FontSize="10"/>
-                <Label Content="Last updated: 2days ago" Canvas.Left="173" Canvas.Top="194" FontSize="10"/>
-                <Button Content="Restore" Canvas.Left="327" Canvas.Top="199" Width="59"/>
-                <Button Content="Update" Canvas.Left="403" Canvas.Top="199" Width="59"/>
-                <Button Content="Diff" Canvas.Left="476" Canvas.Top="199" Width="59"/>
-                <Label Content="Location" Canvas.Left="30" Canvas.Top="224"/>
-                <TextBox Height="24" Canvas.Left="90" TextWrapping="NoWrap" Text="C:\Users\szabolcs.nothnagel\source\repos\TestWpfApp1\TestWpfApp1\Web.config" Canvas.Top="226" Width="492"/>-->
-
-                <!--V2 header and tabs-->
-                <!--<Label Content="Stash 1 asdf" Canvas.Left="10" Canvas.Top="10" FontWeight="Bold" FontSize="16"/>
-                <Label Canvas.Left="21" Canvas.Top="41" Width="606" Height="46">
-                    <AccessText TextWrapping="Wrap" Text="Description! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dictum quis nulla a accumsan. Phasellus porttitor nulla sed ex bibendum consequat. Mauris eleifend diam et nunc fringilla commodo."/>
-                </Label>
-                <Button Content="edit" Canvas.Left="115" Canvas.Top="16" Width="36"/>
-                <Button Content="edit" Canvas.Left="581" Canvas.Top="87" Width="36"/>
-                <Button Content="Restore all files" Canvas.Left="30" Canvas.Top="100" Width="90"/>
-                <Button Content="Update all files" Canvas.Left="135" Canvas.Top="100" Width="90"/>
-                <TabControl Height="225" Canvas.Left="21" Canvas.Top="144" Width="596">
-                    <TabItem Header="web.config">
-                        <Canvas Background="#FFE5E5E5">
-                            <Label Content="Created: 2019.07.11. 14:30:00" Canvas.Left="30" Canvas.Top="10" FontSize="10"/>
-                            <Label Content="Last updated: 2days ago" Canvas.Left="173" Canvas.Top="10" FontSize="10"/>
-                            <Button Content="Restore" Canvas.Left="327" Canvas.Top="10" Width="59"/>
-                            <Button Content="Update" Canvas.Left="403" Canvas.Top="10" Width="59"/>
-                            <Button Content="Diff" Canvas.Left="476" Canvas.Top="10" Width="59"/>
-                            <Label Content="Location" Canvas.Left="30" Canvas.Top="38"/>
-                            <TextBox Height="24" Canvas.Left="90" TextWrapping="NoWrap" Text="C:\Users\szabolcs.nothnagel\source\repos\TestWpfApp1\TestWpfApp1\Web.config" Canvas.Top="40" Width="492"/>
-                            <TextBlock Canvas.Left="10" TextWrapping="NoWrap" Text="file contents go here with scrollbar and syntax highlight maybe" Canvas.Top="77" Height="110" Width="570" Background="White"/>
-                        </Canvas>
-                    </TabItem>
-                    <TabItem Header="appdata\data.xml">
-                        <Grid Background="#FFE5E5E5"/>
-                    </TabItem>
-                </TabControl>-->
-
-                <!--V3 header and files -->
+                --><!--V3 header and files --><!--
                 <Label Content="Stash 1 asdf" Canvas.Left="10" Canvas.Top="10" FontWeight="Bold" FontSize="16"/>
                 <Label Canvas.Left="21" Canvas.Top="41" Width="606" Height="46">
                     <AccessText TextWrapping="Wrap" Text="Description! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dictum quis nulla a accumsan. Phasellus porttitor nulla sed ex bibendum consequat. Mauris eleifend diam et nunc fringilla commodo."/>
@@ -175,6 +136,6 @@
                 <Label Content="C:\Users\szabolcs.nothnagel\source\repos\TestWpfApp1\TestWpfApp1\Web.config" Canvas.Left="113" Canvas.Top="219" FontSize="10"/>
                 <TextBox Height="24" Canvas.Left="90" TextWrapping="NoWrap" Text="C:\Users\szabolcs.nothnagel\source\repos\TestWpfApp1\TestWpfApp1\Web.config" Canvas.Top="244" Width="492"/>
             </Canvas>
-        </Grid>
+        </Grid>-->
     </DockPanel>
 </Window>
