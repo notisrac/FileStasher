@@ -317,10 +317,18 @@ namespace FileStasher.Utilities
             ExtensionKey.GetValueNames();
             RegistryKey ApplicationKey =
                 Root.OpenSubKey(ExtensionKey.GetValue("").ToString());
+            if (ApplicationKey == null)
+            {
+                return null;
+            }
 
             //gets the name of the file that have the icon.
             string IconLocation =
                 ApplicationKey.OpenSubKey("DefaultIcon").GetValue("").ToString();
+            if (string.IsNullOrWhiteSpace(IconLocation))
+            {
+                return null;
+            }
             string[] IconPath = IconLocation.Split(',');
 
             if (IconPath[1] == null) IconPath[1] = "0";
