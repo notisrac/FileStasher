@@ -1,8 +1,11 @@
 ﻿using Newtonsoft.Json;
 using NLog;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,7 +17,7 @@ namespace FileStasher.Model
     /// A collection of file stashes
     /// </summary>
     [Serializable]
-    public class StashContainer
+    public class StashContainer : IEnumerable, INotifyCollectionChanged
     {
         /// <summary>
         /// List of stashes
@@ -23,14 +26,24 @@ namespace FileStasher.Model
 
         private ILogger logger;
 
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+
         public StashContainer()
         {
-            this.Stashes = new List<FileStash>();
+            this.Stashes = new ObservableCollection<FileStash>();
         }
 
         public StashContainer(ILogger logger) : this()
         {
             this.logger = logger;
+        }
+
+        public void Add()
+        {
+            this.Stashes.Add(new FileStash() {
+                Name = $"Stash {this.Stashes.Count + 1}"
+            });
+            this.NotifyCollectionChanged(NotifyCollectionChangedAction.Add);
         }
 
         /// <summary>
@@ -83,5 +96,19 @@ namespace FileStasher.Model
                 throw;
             }
         }
+
+        public IEnumerator GetEnumerator()
+        {
+            return this.Stashes.GetEnumerator();
+        }
+
+        private void NotifyCollectionChanged(NotifyCollectionChangedAction action)
+        {
+            if (this.CollectionChanged != null)
+            {
+                this.CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            }
+        }
+
     }
 }

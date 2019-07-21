@@ -25,22 +25,48 @@ namespace FileStasher
     /// </summary>
     public partial class MainWindow : Window
     {
-        private StashContainer stashContainer;
-        private readonly ILogger logger;
+        public StashContainer stashContainer { get; set; }
         public string CurrentlyOpenFileName { get; set; }
+
+        
+        private readonly ILogger logger;
 
 
         public MainWindow(ILogger logger)
         {
             InitializeComponent();
+
             this.logger = logger;
             this.stashContainer = new StashContainer();
             this.CurrentlyOpenFileName = string.Empty;
+
+            this.DataContext = this;
+
+            // temp
+            var stash = new FileStash()
+            {
+                Description = "asdasdqefwefsvsv",
+                Name = "test stash"
+            };
+            stash.Files.Add(new StashedFile() {
+                Description = "asdasdererr2wwccs",
+                LastRestorePath = "c:\\temp.txt",
+                Name = "temp.txt",
+                SourcePath = "c:\\temp.txt"
+            });
+            stash.Files.Add(StashedFile.FromFileInfo(new System.IO.FileInfo(@"c:\Users\noti\Dropbox\Projects\FileStasher\FileStasher\packages.config")));
+            stash.Files.Add(StashedFile.FromFileInfo(new System.IO.FileInfo(@"c:\Users\noti\Dropbox\Projects\FileStasher\FileStasher\FileStasher.csproj")));
+            this.stashContainer.Stashes.Add(stash);
+            this.stashContainer.Add();
+            this.CurrentlyOpenFileName = "c:\\temp.txt";
         }
 
         public void Initialize(string fileName)
         {
-            this.Load(fileName);
+            if (!string.IsNullOrWhiteSpace(fileName))
+            {
+                this.Load(fileName);
+            }
         }
 
         public void New()
@@ -129,6 +155,13 @@ namespace FileStasher
         private void SaveAs_Executed(object sender, ExecutedRoutedEventArgs e)
         {
 
+        }
+
+        private void btnAddStash_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("adding new stash!!!!!!!!!!!!!!!");
+            this.stashContainer.Add();
+            //this.trvList.GetBindingExpression(TreeView.ItemsSourceProperty).UpdateSource();
         }
     }
 }

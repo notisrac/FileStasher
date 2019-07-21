@@ -5,25 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FileStasher"
         xmlns:model="clr-namespace:FileStasher.Model"
+        xmlns:debugutil="clr-namespace:FileStasher.Utilities.Debugging"
+        xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <!--<Window.CommandBindings>
+    <Window.CommandBindings>
         <CommandBinding Command="New" Executed="New_Executed" />
         <CommandBinding Command="Open" Executed="Open_Executed" />
         <CommandBinding Command="Close" Executed="Close_Executed" />
         <CommandBinding Command="Save" Executed="Save_Executed" />
         <CommandBinding Command="SaveAs" Executed="SaveAs_Executed" />
-    </Window.CommandBindings>-->
+    </Window.CommandBindings>
+    <Window.Resources>
+        <debugutil:DebugDataBindingConverter x:Key="DebugBinding"/>
+    </Window.Resources>
     <DockPanel>
-        <!-- menu --><!--
+        <!-- menu -->
         <Menu DockPanel.Dock="Top" VerticalAlignment="Top" Width="auto" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
             <MenuItem Header="_File">
                 <MenuItem Header="_New..." Command="New"/>
                 <MenuItem Header="_Open..." Command="Open"/>
                 <Separator/>
-                <MenuItem Header="{Binding CurrentlyOpenFileName, StringFormat=_Close {0}}" Command="Close"/>
+                <!-- TODO fix menu string format -->
+                <MenuItem Header="{Binding Path=CurrentlyOpenFileName}" HeaderStringFormat="_Close {0}" Command="Close"/>
                 <Separator/>
-                <MenuItem Header="{Binding CurrentlyOpenFileName, StringFormat=_Save {0}}" Command="Save"/>
+                <MenuItem Header="{Binding CurrentlyOpenFileName}" HeaderStringFormat="$Save {0}" Command="Save"/>
                 <MenuItem Header="{Binding CurrentlyOpenFileName, StringFormat=Save {0} _As}" Command="SaveAs"/>
                 <Separator/>
                 <MenuItem Header="_Recently Closed">
@@ -40,7 +46,7 @@
             </MenuItem>
         </Menu>
 
-        --><!-- status bar --><!--
+        <!-- status bar -->
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -60,7 +66,7 @@
             </StatusBarItem>
             <Separator Grid.Column="1" />
             <StatusBarItem Grid.Column="2">
-                <TextBlock Text="{Binding CurrentlyOpenFileName}" />
+                <TextBlock Text="{Binding Path=CurrentlyOpenFileName}" />
             </StatusBarItem>
             <Separator Grid.Column="3" />
             <StatusBarItem Grid.Column="4">
@@ -68,7 +74,7 @@
             </StatusBarItem>
         </StatusBar>
 
-        --><!-- body --><!--
+        <!-- body -->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150" MinWidth="100"/>
@@ -76,16 +82,16 @@
                 <ColumnDefinition Width="*" MinWidth="100"/>
             </Grid.ColumnDefinitions>
 
-            --><!-- left side navigation --><!--
+            <!-- left side navigation -->
             <DockPanel>
-                --><!-- search box --><!--
+                <!-- search box -->
                 <DockPanel DockPanel.Dock="Top" LastChildFill="True">
                     <Button Content="Filter" Width="40" DockPanel.Dock="Right"/>
                     <TextBox Width="Auto"/>
                 </DockPanel>
-                --><!-- new stash button --><!--
-                <Button Content="New stash" DockPanel.Dock="Top"/>
-                --><!-- stash list --><!--
+                <!-- new stash button -->
+                <Button x:Name="btnAddStash" Content="Add new stash" DockPanel.Dock="Top" Click="btnAddStash_Click"/>
+                <!-- stash list -->
                 <TreeView Name="trvList" ItemsSource="{Binding stashContainer}">
                     <TreeView.ItemContainerStyle>
                         <Style TargetType="{x:Type TreeViewItem}">
@@ -93,7 +99,7 @@
                         </Style>
                     </TreeView.ItemContainerStyle>
                     <TreeView.Resources>
-                        <HierarchicalDataTemplate DataType="{x:Type model:FileStash}" ItemsSource="{Binding Stashes}" >
+                        <HierarchicalDataTemplate DataType="{x:Type model:FileStash}" ItemsSource="{Binding Files, UpdateSourceTrigger=PropertyChanged}" >
                             <TextBlock Text="{Binding Path=Name}" />
                         </HierarchicalDataTemplate>
 
@@ -108,12 +114,12 @@
                 </TreeView>
             </DockPanel>
 
-            --><!-- resize splitter --><!--
+            <!-- resize splitter -->
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
 
-            --><!-- content --><!--
+            <!-- content -->
             <Canvas Grid.Column="2">
-                --><!--V3 header and files --><!--
+                <!--V3 header and files -->
                 <Label Content="Stash 1 asdf" Canvas.Left="10" Canvas.Top="10" FontWeight="Bold" FontSize="16"/>
                 <Label Canvas.Left="21" Canvas.Top="41" Width="606" Height="46">
                     <AccessText TextWrapping="Wrap" Text="Description! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dictum quis nulla a accumsan. Phasellus porttitor nulla sed ex bibendum consequat. Mauris eleifend diam et nunc fringilla commodo."/>
@@ -136,6 +142,8 @@
                 <Label Content="C:\Users\szabolcs.nothnagel\source\repos\TestWpfApp1\TestWpfApp1\Web.config" Canvas.Left="113" Canvas.Top="219" FontSize="10"/>
                 <TextBox Height="24" Canvas.Left="90" TextWrapping="NoWrap" Text="C:\Users\szabolcs.nothnagel\source\repos\TestWpfApp1\TestWpfApp1\Web.config" Canvas.Top="244" Width="492"/>
             </Canvas>
-        </Grid>-->
+        </Grid>
     </DockPanel>
 </Window>
+
+<!--, Converter={StaticResource DebugBinding}, diag:PresentationTraceSources.TraceLevel=High-->

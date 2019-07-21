@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace FileStasher.Model
     /// Represents a file stash
     /// </summary>
     [Serializable]
-    public class FileStash
+    public class FileStash : IEnumerable
     {
         /// <summary>
         /// Id of the stash
@@ -42,7 +43,7 @@ namespace FileStasher.Model
 
         public FileStash()
         {
-            this.Files = new List<StashedFile>();
+            this.Files = new ObservableCollection<StashedFile>();
             // set these for a new stash
             this.CreatedDate = DateTime.UtcNow;
             this.Id = Guid.NewGuid();
@@ -83,6 +84,11 @@ namespace FileStasher.Model
                 var index = this.Files.IndexOf(file);
                 this.Files[index] = file;
             }
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return this.Files.GetEnumerator();
         }
     }
 }

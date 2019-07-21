@@ -88,7 +88,14 @@ namespace FileStasher.Model
             {
                 var fileExt = new FileInfo(fileName).Extension;
                 var iconBitmap = Icons.IconFromExtension(fileExt, Icons.SystemIconSize.Small)?.ToBitmap();
-                this.Icon = ImageUtils.BitmapToBitmapImage(iconBitmap);
+                if (iconBitmap == null)
+                {
+                    iconBitmap = Icons.IconFromExtensionShell(fileExt, Icons.SystemIconSize.Small)?.ToBitmap();
+                }
+                if (iconBitmap != null)
+                {
+                    this.Icon = ImageUtils.BitmapToBitmapImage(iconBitmap);
+                }
 
             }
             catch (Exception ex)
