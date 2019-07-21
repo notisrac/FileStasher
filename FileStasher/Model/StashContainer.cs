@@ -109,6 +109,5 @@ namespace FileStasher.Model
                 this.CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             }
         }
-
     }
 }

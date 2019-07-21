@@ -2,9 +2,11 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +19,7 @@ namespace FileStasher.Model
     /// A single stashed file
     /// </summary>
     [Serializable]
-    public class StashedFile
+    public class StashedFile : INotifyPropertyChanged
     {
         /// <summary>
         /// Name of the file
@@ -59,6 +61,8 @@ namespace FileStasher.Model
         /// </summary>
         [JsonIgnore]
         public ImageSource Icon { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// Creates a stashed file from a fileinfo
@@ -113,6 +117,14 @@ namespace FileStasher.Model
         internal void OnDeserializedMethod(StreamingContext context)
         {
             this.LoadIcon(this.SourcePath);
+        }
+
+        private void NotifyPropertyChanged([CallerMemberName] string propName = null)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            }
         }
     }
 }

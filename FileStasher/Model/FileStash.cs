@@ -3,7 +3,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +16,7 @@ namespace FileStasher.Model
     /// Represents a file stash
     /// </summary>
     [Serializable]
-    public class FileStash : IEnumerable
+    public class FileStash : IEnumerable, INotifyPropertyChanged, INotifyCollectionChanged
     {
         /// <summary>
         /// Id of the stash
@@ -48,6 +51,9 @@ namespace FileStasher.Model
             this.CreatedDate = DateTime.UtcNow;
             this.Id = Guid.NewGuid();
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         /// <summary>
         /// Adds a file to the stash
@@ -90,5 +96,22 @@ namespace FileStasher.Model
         {
             return this.Files.GetEnumerator();
         }
+
+        private void NotifyCollectionChanged(NotifyCollectionChangedAction action)
+        {
+            if (this.CollectionChanged != null)
+            {
+                this.CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            }
+        }
+
+        private void NotifyPropertyChanged([CallerMemberName] string propName = null)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            }
+        }
+
     }
 }
