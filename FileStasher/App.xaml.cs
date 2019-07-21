@@ -1,4 +1,5 @@
 ﻿using FileStasher.Model;
+using FileStasher.Utilities.Debugging;
 using NLog;
 using NLog.Fluent;
 using SimpleInjector;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -32,6 +34,12 @@ namespace FileStasher
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            // set up the data binding debugging
+            PresentationTraceSources.Refresh();
+            PresentationTraceSources.DataBindingSource.Listeners.Add(new ConsoleTraceListener());
+            PresentationTraceSources.DataBindingSource.Listeners.Add(new DebugTraceListener());
+            PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Warning | SourceLevels.Error;
+
             // instantiate the container
             this.container = new Container();
             //this.container.Options.DefaultLifestyle = new ThreadScopedLifestyle();
