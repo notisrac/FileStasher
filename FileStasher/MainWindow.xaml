@@ -92,20 +92,20 @@
                 <!-- new stash button -->
                 <Button x:Name="btnAddStash" Content="Add new stash" DockPanel.Dock="Top" Click="btnAddStash_Click"/>
                 <!-- stash list -->
-                <TreeView Name="trvList" ItemsSource="{Binding stashContainer}">
+                <TreeView Name="trvList" ItemsSource="{Binding stashContainer}" SelectedItemChanged="TrvList_SelectedItemChanged">
                     <TreeView.ItemContainerStyle>
                         <Style TargetType="{x:Type TreeViewItem}">
                             <Setter Property="IsExpanded" Value="True" />
                         </Style>
                     </TreeView.ItemContainerStyle>
                     <TreeView.Resources>
-                        <HierarchicalDataTemplate DataType="{x:Type model:FileStash}" ItemsSource="{Binding Files, UpdateSourceTrigger=PropertyChanged}" >
+                        <HierarchicalDataTemplate DataType="{x:Type model:FileStash}" ItemsSource="{Binding Files, UpdateSourceTrigger=PropertyChanged}">
                             <TextBlock Text="{Binding Path=Name}" />
                         </HierarchicalDataTemplate>
 
                         <DataTemplate DataType="{x:Type model:StashedFile}" >
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="{Binding Icon}" Stretch="Uniform" Height="16"/>
+                                <Image Source="{Binding Icon}" Stretch="Uniform" Height="16" MinWidth="16" MinHeight="16"/>
                                 <TextBlock Text="{Binding Path=Name}" Margin="5,0,0,0" />
                             </StackPanel>
                         </DataTemplate>
@@ -128,8 +128,27 @@
                 <Button Content="edit" Canvas.Left="581" Canvas.Top="87" Width="36"/>
                 <Button Content="Restore all files" Canvas.Left="30" Canvas.Top="100" Width="90"/>
                 <Button Content="Update all files" Canvas.Left="135" Canvas.Top="100" Width="90"/>
+                <TabControl Height="230" Width="617" Canvas.Left="10" Canvas.Top="139">
+                    <TabItem Header="web.config">
+                        <Canvas Background="#FFFFFF">
+                            <Label Content="Created: 2019.07.11. 14:30:00" Canvas.Left="10" Canvas.Top="10" FontSize="10"/>
+                            <Label Content="Last updated: 2days ago" Canvas.Left="153" Canvas.Top="10" FontSize="10"/>
+                            <Button Content="Restore" Canvas.Left="327" Canvas.Top="13" Width="59"/>
+                            <Button Content="Update" Canvas.Left="400" Canvas.Top="13" Width="59"/>
+                            <Button Content="Diff" Canvas.Left="473" Canvas.Top="13" Width="59"/>
+                            <Button Content="Open" Canvas.Left="542" Canvas.Top="13" Width="59"/>
+                            <Label Content="Location" Canvas.Left="20" Canvas.Top="47"/>
+                            <Label Content="Original location" Canvas.Left="20" Canvas.Top="78" FontSize="10"/>
+                            <Label Content="C:\Users\szabolcs.nothnagel\source\repos\TestWpfApp1\TestWpfApp1\Web.config" Canvas.Left="90" Canvas.Top="47" FontSize="10"/>
+                            <TextBox Height="24" Canvas.Left="103" TextWrapping="NoWrap" Text="C:\Users\szabolcs.nothnagel\source\repos\TestWpfApp1\TestWpfApp1\Web.config" Canvas.Top="78" Width="492"/>
+                        </Canvas>
+                    </TabItem>
+                    <TabItem Header="settings.json">
+                        <Grid Background="#FFE5E5E5"/>
+                    </TabItem>
+                </TabControl>
 
-                <Label Content="Files" Canvas.Left="10" Canvas.Top="134"/>
+                <!--<Label Content="Files" Canvas.Left="10" Canvas.Top="134"/>
                 <Label Content="Web.config" Canvas.Left="30" Canvas.Top="165" FontWeight="Bold" FontSize="14"/>
                 <Label Content="Created: 2019.07.11. 14:30:00" Canvas.Left="30" Canvas.Top="194" FontSize="10"/>
                 <Label Content="Last updated: 2days ago" Canvas.Left="173" Canvas.Top="194" FontSize="10"/>
@@ -140,7 +159,9 @@
                 <Label Content="Location" Canvas.Left="30" Canvas.Top="242"/>
                 <Label Content="Original location" Canvas.Left="30" Canvas.Top="219" FontSize="10"/>
                 <Label Content="C:\Users\szabolcs.nothnagel\source\repos\TestWpfApp1\TestWpfApp1\Web.config" Canvas.Left="113" Canvas.Top="219" FontSize="10"/>
-                <TextBox Height="24" Canvas.Left="90" TextWrapping="NoWrap" Text="C:\Users\szabolcs.nothnagel\source\repos\TestWpfApp1\TestWpfApp1\Web.config" Canvas.Top="244" Width="492"/>
+                <TextBox Height="24" Canvas.Left="90" TextWrapping="NoWrap" Text="C:\Users\szabolcs.nothnagel\source\repos\TestWpfApp1\TestWpfApp1\Web.config" Canvas.Top="244" Width="492"/>-->
+
+
             </Canvas>
         </Grid>
     </DockPanel>

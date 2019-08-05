@@ -163,5 +163,10 @@ namespace FileStasher
             this.stashContainer.Add();
             //this.trvList.GetBindingExpression(TreeView.ItemsSourceProperty).UpdateSource();
         }
+
+        private void TrvList_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var x = 1;
+        }
     }
 }

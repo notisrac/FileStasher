@@ -16,7 +16,7 @@ namespace FileStasher.Model
     /// Represents a file stash
     /// </summary>
     [Serializable]
-    public class FileStash : IEnumerable, INotifyPropertyChanged, INotifyCollectionChanged
+    public class FileStash : NotifyDataChangedBase, IEnumerable
     {
         /// <summary>
         /// Id of the stash
@@ -52,8 +52,6 @@ namespace FileStasher.Model
             this.Id = Guid.NewGuid();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         /// <summary>
         /// Adds a file to the stash
@@ -95,22 +93,6 @@ namespace FileStasher.Model
         public IEnumerator GetEnumerator()
         {
             return this.Files.GetEnumerator();
-        }
-
-        private void NotifyCollectionChanged(NotifyCollectionChangedAction action)
-        {
-            if (this.CollectionChanged != null)
-            {
-                this.CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-            }
-        }
-
-        private void NotifyPropertyChanged([CallerMemberName] string propName = null)
-        {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-            }
         }
 
     }

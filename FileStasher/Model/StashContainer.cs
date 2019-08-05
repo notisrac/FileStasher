@@ -17,16 +17,20 @@ namespace FileStasher.Model
     /// A collection of file stashes
     /// </summary>
     [Serializable]
-    public class StashContainer : IEnumerable, INotifyCollectionChanged
+    public class StashContainer : NotifyDataChangedBase, IEnumerable
     {
         /// <summary>
         /// List of stashes
         /// </summary>
         public IList<FileStash> Stashes { get; set; }
+        /// <summary>
+        /// The full name of the file where this container is
+        /// </summary>
+        public string FileName { get; set; }
+
 
         private ILogger logger;
 
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         public StashContainer()
         {
@@ -43,9 +47,10 @@ namespace FileStasher.Model
             this.Stashes.Add(new FileStash() {
                 Name = $"Stash {this.Stashes.Count + 1}"
             });
-            this.NotifyCollectionChanged(NotifyCollectionChangedAction.Add);
+            base.NotifyCollectionChanged(NotifyCollectionChangedAction.Add);
         }
 
+        #region file_operations
         /// <summary>
         /// Loads a <see cref="StashContainer"/> from the specified file
         /// </summary>
@@ -88,7 +93,6 @@ namespace FileStasher.Model
             {
                 string serializedObject = JsonConvert.SerializeObject(this);
                 File.WriteAllText(fileName, serializedObject, Encoding.UTF8);
-
             }
             catch (Exception ex)
             {
@@ -96,18 +100,12 @@ namespace FileStasher.Model
                 throw;
             }
         }
+        #endregion
 
+        // <inheritdoc />
         public IEnumerator GetEnumerator()
         {
             return this.Stashes.GetEnumerator();
-        }
-
-        private void NotifyCollectionChanged(NotifyCollectionChangedAction action)
-        {
-            if (this.CollectionChanged != null)
-            {
-                this.CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-            }
         }
     }
 }

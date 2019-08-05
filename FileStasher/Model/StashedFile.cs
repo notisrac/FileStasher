@@ -19,7 +19,7 @@ namespace FileStasher.Model
     /// A single stashed file
     /// </summary>
     [Serializable]
-    public class StashedFile : INotifyPropertyChanged
+    public class StashedFile : NotifyDataChangedBase
     {
         /// <summary>
         /// Name of the file
@@ -62,7 +62,6 @@ namespace FileStasher.Model
         [JsonIgnore]
         public ImageSource Icon { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// Creates a stashed file from a fileinfo
@@ -117,14 +116,6 @@ namespace FileStasher.Model
         internal void OnDeserializedMethod(StreamingContext context)
         {
             this.LoadIcon(this.SourcePath);
-        }
-
-        private void NotifyPropertyChanged([CallerMemberName] string propName = null)
-        {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-            }
         }
     }
 }
