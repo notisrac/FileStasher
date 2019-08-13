@@ -118,9 +118,54 @@
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
 
             <!-- content -->
-            <Canvas Grid.Column="2">
-                <!--V3 header and files -->
-                <Label Content="Stash 1 asdf" Canvas.Left="10" Canvas.Top="10" FontWeight="Bold" FontSize="16"/>
+            <DockPanel Grid.Column="2">
+                <!-- title -->
+                <DockPanel DockPanel.Dock="Top" LastChildFill="True" Margin="5, 0, 5, 0">
+                    <Button DockPanel.Dock="Right" Content="edit" Width="36" Height="20" VerticalAlignment="Center"/>
+                    <!-- stash name -->
+                    <Label Content="Stash 1 asdf" FontWeight="Bold" FontSize="16" ToolTip="Name of the stash"/>
+                </DockPanel>
+                <!-- description -->
+                <DockPanel DockPanel.Dock="Top" LastChildFill="True" Margin="20, 0, 5, 0">
+                    <Button DockPanel.Dock="Right" Content="edit" Width="36" Height="20" VerticalAlignment="Center"/>
+                    <!-- stash description -->
+                    <Label>
+                        <ScrollViewer Height="40" VerticalScrollBarVisibility="Auto">
+                            <AccessText TextWrapping="Wrap" ToolTip="Description of the stash" Text="Description! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dictum quis nulla a accumsan. Phasellus porttitor nulla sed ex bibendum consequat. Mauris eleifend diam et nunc fringilla commodo."/>
+                        </ScrollViewer>
+                    </Label>
+                </DockPanel>
+                <!-- files -->
+                <TabControl DockPanel.Dock="Bottom" Margin="0, 10, 0, 0">
+                    <TabItem>
+                        <TabItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <!--<Image Source="{Binding Icon}" Stretch="Uniform" Height="16" MinWidth="16" MinHeight="16"/>-->
+                                <TextBlock Text="web.config" Margin="5,0,0,0" />
+                            </StackPanel>
+                        </TabItem.Header>
+                        <!--<TextBox TextWrapping="NoWrap" Text="header"/>-->
+                        <Canvas Background="#FFFFFF">
+                            <Label Content="Created: 2019.07.11. 14:30:00" Canvas.Left="10" Canvas.Top="227" FontSize="10"/>
+                            <Label Content="Last updated: 2days ago" Canvas.Left="153" Canvas.Top="227" FontSize="10"/>
+                            <Button Content="Restore" Canvas.Left="287" Canvas.Top="230" Width="59"/>
+                            <Button Content="Update" Canvas.Left="494" Canvas.Top="230" Width="59"/>
+                            <Button Content="Diff" Canvas.Left="426" Canvas.Top="230" Width="59"/>
+                            <Button Content="Open" Canvas.Left="357" Canvas.Top="230" Width="59"/>
+                            <Button Content="Delete" Canvas.Left="562" Canvas.Top="230" Width="59"/>
+                            <Label Content="Original location" Canvas.Left="10" Canvas.Top="204" FontSize="10"/>
+                            <Label Content="C:\Users\szabolcs.nothnagel\source\repos\TestWpfApp1\TestWpfApp1\Web.config" Canvas.Left="98" Canvas.Top="203" FontSize="10"/>
+                            <TextBox Height="189" Canvas.Left="10" TextWrapping="Wrap" Text="TextBox" Canvas.Top="10" Width="611" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" FontFamily="Consolas"/>
+                        </Canvas>
+                    </TabItem>
+                    <TabItem Header="settings.json">
+                        <Grid Background="#FFE5E5E5"/>
+                    </TabItem>
+                </TabControl>
+            </DockPanel>
+            <!--<Canvas Grid.Column="2">-->
+            <!--V3 header and files -->
+            <!--<Label Content="Stash 1 asdf" Canvas.Left="10" Canvas.Top="10" FontWeight="Bold" FontSize="16"/>
                 <Label Canvas.Left="21" Canvas.Top="41" Width="606" Height="46">
                     <AccessText TextWrapping="Wrap" Text="Description! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dictum quis nulla a accumsan. Phasellus porttitor nulla sed ex bibendum consequat. Mauris eleifend diam et nunc fringilla commodo."/>
                 </Label>
@@ -146,9 +191,9 @@
                     <TabItem Header="settings.json">
                         <Grid Background="#FFE5E5E5"/>
                     </TabItem>
-                </TabControl>
+                </TabControl>-->
 
-                <!--<Label Content="Files" Canvas.Left="10" Canvas.Top="134"/>
+            <!--<Label Content="Files" Canvas.Left="10" Canvas.Top="134"/>
                 <Label Content="Web.config" Canvas.Left="30" Canvas.Top="165" FontWeight="Bold" FontSize="14"/>
                 <Label Content="Created: 2019.07.11. 14:30:00" Canvas.Left="30" Canvas.Top="194" FontSize="10"/>
                 <Label Content="Last updated: 2days ago" Canvas.Left="173" Canvas.Top="194" FontSize="10"/>
@@ -162,7 +207,7 @@
                 <TextBox Height="24" Canvas.Left="90" TextWrapping="NoWrap" Text="C:\Users\szabolcs.nothnagel\source\repos\TestWpfApp1\TestWpfApp1\Web.config" Canvas.Top="244" Width="492"/>-->
 
 
-            </Canvas>
+            <!--</Canvas>-->
         </Grid>
     </DockPanel>
 </Window>
