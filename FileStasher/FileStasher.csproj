@@ -70,12 +70,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Assets\Icons\icons.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>icons.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\ApplicationState.cs" />
     <Compile Include="Model\NotifyDataChangedBase.cs" />
     <Compile Include="Utilities\Debugging\DebugDataBindingConverter.cs" />
     <Compile Include="Utilities\Debugging\DebugTraceListener.cs" />
     <Compile Include="Utilities\Icons.cs" />
     <Compile Include="Utilities\ImageUtils.cs" />
+    <Page Include="Assets\Icons\icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -119,6 +128,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Icons\icons.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>icons.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
