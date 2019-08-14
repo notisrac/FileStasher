@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FileStasher"
         xmlns:model="clr-namespace:FileStasher.Model"
+        xmlns:assets="clr-namespace:FileStasher.Assets"
         xmlns:debugutil="clr-namespace:FileStasher.Utilities.Debugging"
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         mc:Ignorable="d"
@@ -141,12 +142,39 @@
                         <TabItem.Header>
                             <StackPanel Orientation="Horizontal">
                                 <!--<Image Source="{Binding Icon}" Stretch="Uniform" Height="16" MinWidth="16" MinHeight="16"/>-->
+                                <Image Source="{StaticResource {x:Static assets:Icons.fileDrawingImageKey}}" Stretch="Uniform" Height="16" MinWidth="16" MinHeight="16"/>
                                 <TextBlock Text="web.config" Margin="5,0,0,0" />
                             </StackPanel>
                         </TabItem.Header>
+                        <DockPanel LastChildFill="True">
+                            <DockPanel DockPanel.Dock="Bottom">
+                                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                                    <Label Content="Original location" FontSize="10"/>
+                                    <Label>
+                                        <TextBlock TextTrimming="CharacterEllipsis" FontSize="10">C:\Users\szabolcs.nothnagel\source\repos\TestWpfApp1\TestWpfApp1\Web.config</TextBlock>
+                                    </Label>
+                                </StackPanel>
+                                <DockPanel DockPanel.Dock="Bottom">
+                                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Height="25">
+                                        <Label Content="Added:" FontSize="10"/>
+                                        <Label Content="2019.07.11. 14:30:00" FontSize="10"/>
+                                        <Label Content="Last updated:" FontSize="10"/>
+                                        <Label Content="2days ago" FontSize="10"/>
+                                    </StackPanel>
+                                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Height="25">
+                                        <Button Content="Restore" Width="59"/>
+                                        <Button Content="Update" Width="59"/>
+                                        <Button Content="Diff" Width="59"/>
+                                        <Button Content="Open" Width="59"/>
+                                        <Button Content="Delete" Width="59"/>
+                                    </StackPanel>
+                                </DockPanel>
+                            </DockPanel>
+                            <TextBox DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" Text="TextBox" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" FontFamily="Consolas"/>
+                        </DockPanel>
                         <!--<TextBox TextWrapping="NoWrap" Text="header"/>-->
-                        <Canvas Background="#FFFFFF">
-                            <Label Content="Created: 2019.07.11. 14:30:00" Canvas.Left="10" Canvas.Top="227" FontSize="10"/>
+                        <!--<Canvas Background="#FFFFFF">
+                            <Label Content="Added: 2019.07.11. 14:30:00" Canvas.Left="10" Canvas.Top="227" FontSize="10"/>
                             <Label Content="Last updated: 2days ago" Canvas.Left="153" Canvas.Top="227" FontSize="10"/>
                             <Button Content="Restore" Canvas.Left="287" Canvas.Top="230" Width="59"/>
                             <Button Content="Update" Canvas.Left="494" Canvas.Top="230" Width="59"/>
@@ -156,7 +184,7 @@
                             <Label Content="Original location" Canvas.Left="10" Canvas.Top="204" FontSize="10"/>
                             <Label Content="C:\Users\szabolcs.nothnagel\source\repos\TestWpfApp1\TestWpfApp1\Web.config" Canvas.Left="98" Canvas.Top="203" FontSize="10"/>
                             <TextBox Height="189" Canvas.Left="10" TextWrapping="Wrap" Text="TextBox" Canvas.Top="10" Width="611" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" FontFamily="Consolas"/>
-                        </Canvas>
+                        </Canvas>-->
                     </TabItem>
                     <TabItem Header="settings.json">
                         <Grid Background="#FFE5E5E5"/>
